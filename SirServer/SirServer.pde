@@ -1,11 +1,15 @@
 import processing.net.*;
+import processing.serial.*;
+import cc.arduino.*;
+
 Server myServer;
 String msg, msgClient;
 Client c;
 ArrayList<Client> clients;
 ArrayList<Defi> defis;
-boolean isIn, waitingDefi;
+boolean isIn, waitingDefi, recording, sendingDefi;
 int i;
+Sequence seq;
 
 void setup() {
   size(200, 200);
@@ -14,6 +18,9 @@ void setup() {
   clients = new ArrayList<Client>();
   defis = new ArrayList<Defi>();
   waitingDefi = false;
+  sendingDefi = false;
+  recording = false;
+  seq = new Sequence(new IntList());
 }
 
 void listClients() {
@@ -40,6 +47,9 @@ void sendDefi() {
   for (Defi d : defis) {
     if (!d.accepted)
       d.dest.write("Defi venant de " + d.exp + " !");
+    else {
+      
+    }  
   }
 }
 
@@ -80,6 +90,28 @@ void draw() {
       return;
     }
     
+    if (recording == true) {
+      int j;
+      
+      try {
+        j = Integer.parseInt(msg);
+        seq.seq.append(j);
+      }
+      catch (NumberFormatException e) {
+        recording = false;
+        println("Fin du recording");
+        sendingDefi = true;
+        return;  
+      }
+      return;  
+    }
+    
+    if (sendingDefi == true) {
+      defis[0].write("sending defi");
+      
+      sendingDefi = false;
+    }
+    
     if (msg.equals("choose"))
       listClients();
     else if (msg.equals("defi"))
@@ -89,6 +121,13 @@ void draw() {
         if (d.dest == c)
           d.accepted = true;
       }  
+    }
+    else if (msg.equals("disconnect")) {
+      clients.remove(c);
+      return;
+    }
+    else if (msg.equals("recording")) {
+      recording = true; 
     }
 
     if (msgClient != null) {
