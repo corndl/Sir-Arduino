@@ -3,6 +3,7 @@ Server myServer;
 String msg, msgClient;
 Client c;
 ArrayList<Client> clients;
+ArrayList<Defi> defis;
 boolean isIn, waitingDefi;
 int i;
 
@@ -11,6 +12,7 @@ void setup() {
   // Starts a myServer on port 5204
   myServer = new Server(this, 5204); 
   clients = new ArrayList<Client>();
+  defis = new ArrayList<Defi>();
   waitingDefi = false;
 }
 
@@ -33,9 +35,18 @@ void defi() {
   } 
 }
 
+void sendDefi() {
+  //spam le destinataire jusqu'à ce qu'il accepte le defi
+  for (Defi d : defis) {
+    if (!d.accepted)
+      d.dest.write("Defi venant de " + d.exp + " !");
+  }
+}
+
 void draw() {
   // Get the next available client
   c = myServer.available();
+  sendDefi();
 
   isIn = false;
   for (int i = 0; i < clients.size(); i++) {
@@ -58,8 +69,12 @@ void draw() {
         return;
       }
       if (i < 10 && (i >= 0) && i <= clients.size() - 1 && clients.get(i) != c) {
+      //si l'input est valable, on envoie le defi au client concerne et on ajoute
+      //le defi a la liste des defis
         clients.get(i).write("Vous avez reçu un défi de " + c + " !");
         c.write("Défi envoyé au client " + msg);
+        Defi defi = new Defi(c, clients.get(i));  
+        defis.add(defi);
         waitingDefi = false;
       }
       return;
@@ -69,6 +84,12 @@ void draw() {
       listClients();
     else if (msg.equals("defi"))
       defi(); 
+    else if (msg.equals("accept")) {
+      for (Defi d : defis) {
+        if (d.dest == c)
+          d.accepted = true;
+      }  
+    }
 
     if (msgClient != null) {
       c.write(msgClient);

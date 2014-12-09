@@ -20,6 +20,8 @@ void keyPressed() {
     msg = "choose";
   if (key == 'd')
     msg = "defi";  
+  if (key == 'a')
+    msg = "accept";  
   if (key == 'r')
     msg = "recording";
   if (key == 's')  
