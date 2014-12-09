@@ -34,10 +34,11 @@ void draw(){
     test2.record(ioa,5000);
     distance = test.distance(test2);
     println(distance);
-    delay(1000);
+    delay(5000);
   }while(distance > 1000);
   
   println("GAGNE!!!");
+  delay(1);
   
   
   
