@@ -50,9 +50,9 @@ class Sequence{
     seq.clear();
     int beginTime = millis();
     int t=0;
-    int boolean isActive = true;
+    boolean isActive = true;
     while(t<duree){
-      boolean test = (isActive && ioa.readAngle()>=90) || ioa.readAngle()<90);
+      boolean test = ((isActive && ioa.readAngle()>=90) || ioa.readAngle()<90);
       if(test){
         isActive = !isActive;
         seq.append(t-this.duree());
@@ -60,6 +60,7 @@ class Sequence{
       }
       t=millis()-beginTime;
     }
+    delay(100);
     seq.append(t-this.duree());
   }
   

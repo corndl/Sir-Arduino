@@ -12,7 +12,7 @@ void setup(){
 
 
 void draw(){
-  loop();
+  
   int plop[] = {10000};
   IntList seq = new IntList();
   seq.append(1000);
@@ -38,6 +38,10 @@ void draw(){
   seq2.append(900);
   
   Sequence test2 = new Sequence(seq2);
+  
+  //test.play(ioa);
+  
+  test.record(ioa,50000);
   
   test.play(ioa);
   
