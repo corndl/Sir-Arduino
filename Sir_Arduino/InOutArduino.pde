@@ -31,18 +31,26 @@ class InOutArduino{
     thread.start(duree);
   }  
   
-  //retourn la valeur d'input entre 0 et 255
   public float read(){
-    float input = arduino.analogRead(inCode);
+    return arduino.analogRead(inCode);
+  }
+  
+  //retourn la valeur d'input entre 0 et 255
+  public float read255(){
+    float input = read();
     float in255 = convert255(600f,300f,input);
     return in255;
   }
   
   //retourn la valeur d'input entre 0 et 180
   public float readAngle(){
-    float in255 = read();
+    float in255 = read255();
     float inAngle = (in255 / 255f)*180;
     return inAngle;
+  }
+  
+  public boolean isOn(){
+    return read()>125;
   }
   
   //thread appelé
