@@ -45,6 +45,10 @@ class InOutArduino{
     return inAngle;
   }
   
+  public boolean isOn(){
+    return read()>125;
+  }
+  
   //thread appelé
   public class ThreadSwitch extends Thread {
     private int msDelay;

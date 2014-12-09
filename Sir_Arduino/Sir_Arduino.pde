@@ -13,6 +13,8 @@ void setup(){
 
 void draw(){
   loop();
+  
+  /*
   fd.turnOn(false);
   println("Attendons 20secondes");
   delay(20000);
