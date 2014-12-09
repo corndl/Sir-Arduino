@@ -16,19 +16,27 @@ void draw(){
   int plop[] = {10000};
   IntList seq = new IntList();
   seq.append(10000);
-  seq.append(9000);
-  seq.append(8000);
-  seq.append(7000);
-  seq.append(6000);
-  seq.append(5000);
-  seq.append(4000);
-  seq.append(3000);
+  seq.append(10000);
+  seq.append(10000);
+  seq.append(10000);
+  seq.append(10000);
+  seq.append(10000);
+  seq.append(10000);
+  seq.append(10000);
   
   //println(seq);
   Sequence test = new Sequence(seq);
-  IntList seq2 = new IntList(seq);
+  IntList seq2 = new IntList();
   
-  seq2.insert(0,plop);
+  seq2.append(10000);
+  seq2.append(10000);
+  seq2.append(10000);
+  seq2.append(10000);
+  seq2.append(10000);
+  seq2.append(10000);
+  seq2.append(10000);
+  seq2.append(9000);
+  
   Sequence test2 = new Sequence(seq2);
   
   
