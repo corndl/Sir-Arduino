@@ -20,34 +20,24 @@ void draw(){
   seq.append(1000);
   seq.append(1000);
   seq.append(1000);
-  seq.append(1000);
-  seq.append(1000);
-  seq.append(1000);
   
   //println(seq);
   Sequence test = new Sequence(seq);
   IntList seq2 = new IntList();
   
-  seq2.append(1000);
-  seq2.append(1000);
-  seq2.append(1000);
-  seq2.append(1000);
-  seq2.append(1000);
-  seq2.append(1000);
-  seq2.append(1000);
-  seq2.append(900);
-  
   Sequence test2 = new Sequence(seq2);
   
   //test.play(ioa);
+  int distance = 2000;
+  do{
+    test.play(ioa);
+    test2.record(ioa,5000);
+    distance = test.distance(test2);
+    println(distance);
+    delay(1000);
+  }while(distance > 1000);
   
-  test.record(ioa,50000);
-  
-  test.play(ioa);
-  
-  delay(100000);
-  
-  
+  println("GAGNE!!!");
   
   
   

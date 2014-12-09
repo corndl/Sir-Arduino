@@ -31,7 +31,6 @@ class Sequence{
     }
     //code exécuté du thread
     public void run () {
-      delay(5000);
       for(int i = 0; i<seq.size();i++){
         ioa.switchOn();
         delay(seq.get(i));
@@ -48,20 +47,22 @@ class Sequence{
   
   public void record(InOutArduino ioa,int duree){
     seq.clear();
+    println("Début du record");
     int beginTime = millis();
     int t=0;
-    boolean isActive = true;
+    boolean isActive = ioa.readAngle()>=90;
     while(t<duree){
-      boolean test = ((isActive && ioa.readAngle()>=90) || ioa.readAngle()<90);
+      boolean test = ((!isActive && ioa.readAngle()>=90) || (isActive && ioa.readAngle()<90));
       if(test){
         isActive = !isActive;
         seq.append(t-this.duree());
         println(seq);
       }
       t=millis()-beginTime;
+      delay(100);
     }
-    delay(100);
     seq.append(t-this.duree());
+    println("Fin du record");
   }
   
   //comparaison de 2 sequence.
