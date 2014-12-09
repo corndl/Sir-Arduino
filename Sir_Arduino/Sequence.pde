@@ -15,8 +15,54 @@ class Sequence{
   } 
   
   public void play(InOutArduino ioa){
-    ioa.turnOn(false);
+    ThreadPlay thread = new ThreadPlay();
+    thread.start(ioa);
   }
+  
+  public class ThreadPlay extends Thread {
+    private InOutArduino ioa;
+    public boolean isRunning;
+    public void start (InOutArduino ioa) {
+      this.ioa = ioa;
+      isRunning = true;
+      
+      ioa.turnOn(false);
+      super.start();
+    }
+    //code exécuté du thread
+    public void run () {
+      delay(5000);
+      for(int i = 0; i<seq.size();i++){
+        ioa.switchOn();
+        delay(seq.get(i));
+      }
+      ioa.turnOn(false);
+      return;
+    }
+    
+    public void quit(){
+      interrupt();
+      isRunning = false;
+    }
+  }
+  
+  public void record(InOutArduino ioa,int duree){
+    seq.clear();
+    int beginTime = millis();
+    int t=0;
+    int boolean isActive = true;
+    while(t<duree){
+      boolean test = (isActive && ioa.readAngle()>=90) || ioa.readAngle()<90);
+      if(test){
+        isActive = !isActive;
+        seq.append(t-this.duree());
+        println(seq);
+      }
+      t=millis()-beginTime;
+    }
+    seq.append(t-this.duree());
+  }
+  
   //comparaison de 2 sequence.
   public int distance(Sequence s){
     int duree1 = this.duree();
