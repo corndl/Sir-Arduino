@@ -19,9 +19,13 @@ void keyPressed() {
   if (key == 'c')
     msg = "choose";
   if (key == 'd')
-    msg = "defi";
-    
-    
+    msg = "defi";  
+  if (key == 'r')
+    msg = "recording";
+  if (key == 's')  
+    msg = "stoprecording";    
+  if (key >= '0' && key <= '9')
+    msg = "" + key;  
 } 
  
 void draw() { 
