@@ -5,39 +5,47 @@ class InOutArduino{
   private int inCode;
   private ThreadSwitch thread;
   
+  //constructeur arduino (la carte connecté) intCode (le numéro de l'entrée) out code (le numéro de la sortie)
   public InOutArduino(Arduino arduino,int inCode,int outCode){
     this.arduino = arduino;
     this.inCode = inCode;
     this.outCode = outCode;
     this.isActive = false;
   }
-  
+  //si isOn alors allume sinon on etteint
   public void turnOn(boolean isOn){
     arduino.digitalWrite(outCode,isOn?arduino.HIGH : arduino.LOW);
     isActive = isOn;
   }
   
+  //on allume si c'est etteint et inversement
   public void switchOn(){
     turnOn(!isActive);
   }
   
+  //on switch pendant la duree (non bloquant)
   public void switchOn(int duree){
-    ThreadSwitch thread = new ThreadSwitch();
+    if(thread != null && thread.isRunning) thread.quit();
+    
+    thread = new ThreadSwitch();
     thread.start(duree);
   }  
   
+  //retourn la valeur d'input entre 0 et 255
   public float read(){
     float input = arduino.analogRead(inCode);
     float in255 = convert255(600f,300f,input);
     return in255;
   }
   
+  //retourn la valeur d'input entre 0 et 180
   public float readAngle(){
     float in255 = read();
     float inAngle = (in255 / 255f)*180;
     return inAngle;
   }
   
+  //thread appelé
   public class ThreadSwitch extends Thread {
     private int msDelay;
     public boolean isRunning;
@@ -46,7 +54,7 @@ class InOutArduino{
       isRunning = true;
       super.start();
     }
- 
+    //code exécuté du thread
     public void run () {
       switchOn();
       delay(msDelay);
@@ -62,7 +70,7 @@ class InOutArduino{
     }
     
 }
-  
+  //converti l'input en valeur entre 0 et 255 par rapport à ses valeur extrème
   private float convert255(float minval,float maxval, float input){
     float range = maxval - minval;
     float output = (input - minval) * 255 / range;
