@@ -5,10 +5,6 @@ class Sequence{
   public Sequence(IntList sequence){
     seq = sequence;
   }
-<<<<<<< HEAD
-  //comparaison de 2 sequence.
-  public int distance(Sequence s){
-=======
   
   public int duree(){
     int res = 0;
@@ -113,7 +109,6 @@ class Sequence{
     return res;
     
     /*
->>>>>>> cef2e2ef923e27606d833a4adacbae69002f350d
     int diff= 0;
     IntList seq1 = this.seq;
     IntList seq2 = s.seq;
@@ -152,38 +147,23 @@ class Sequence{
       Sequence sq2 = new Sequence(seq2);
       return sq1.distance(sq2);
     }else{
-<<<<<<< HEAD
-      println("duree différente : " + duree1 + " > " + duree2);
-      int att = duree1 - duree2;
-      diff =+ seq2.remove(0);
-      if(att > diff){
-        seq1.add(0,att-diff);
-=======
       int att = duree1 - duree2;
       diff =+ seq2.remove(0);
       println("duree différente : " + duree1 + " - " + duree2 + " = "+att+ " diff = "+diff);
       if(att > diff){
         seq2.add(0,att-diff);
->>>>>>> cef2e2ef923e27606d833a4adacbae69002f350d
         
         Sequence sq1 = new Sequence(seq1);
         Sequence sq2 = new Sequence(seq2);
         return diff + sq1.distance(sq2);
       }else{
-<<<<<<< HEAD
-        seq2.add(0,diff-att);
-=======
         seq1.add(0,diff-att);
->>>>>>> cef2e2ef923e27606d833a4adacbae69002f350d
         Sequence sq1 = new Sequence(seq1);
         Sequence sq2 = new Sequence(seq2);
         return sq1.distance(sq2);
       }
     }
-<<<<<<< HEAD
-=======
     //*/
->>>>>>> cef2e2ef923e27606d833a4adacbae69002f350d
   }
   
   

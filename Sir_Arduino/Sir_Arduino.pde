@@ -6,12 +6,17 @@ InOutArduino ioa;
 
 
 void setup(){
+<<<<<<< HEAD
     ioa = new InOutArduino(new Arduino(this, Arduino.list()[1], 57600),
+=======
+    ioa = new InOutArduino(new Arduino(this, Arduino.list()[2], 57600),
+>>>>>>> cef2e2ef923e27606d833a4adacbae69002f350d
                                 0,13);  
 }
 
 
 void draw(){
+<<<<<<< HEAD
   loop();
   int plop[] = {10000};
   IntList seq = new IntList();
@@ -34,6 +39,35 @@ void draw(){
   
   
   println(test.distance(test2));
+=======
+  
+  int plop[] = {10000};
+  IntList seq = new IntList();
+  seq.append(1000);
+  seq.append(1000);
+  seq.append(1000);
+  seq.append(1000);
+  seq.append(1000);
+  
+  //println(seq);
+  Sequence test = new Sequence(seq);
+  IntList seq2 = new IntList();
+  
+  Sequence test2 = new Sequence(seq2);
+  
+  //test.play(ioa);
+  int distance = 2000;
+  do{
+    test.play(ioa);
+    test2.record(ioa,5000);
+    distance = test.distance(test2);
+    println(distance);
+    delay(5000);
+  }while(distance > 1000);
+  
+  println("GAGNE!!!");
+  delay(1);
+>>>>>>> cef2e2ef923e27606d833a4adacbae69002f350d
   
   
   

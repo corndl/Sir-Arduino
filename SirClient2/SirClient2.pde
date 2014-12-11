@@ -14,7 +14,7 @@ void setup() {
   // Connect to the local machine at port 5204.
   // This example will not run if you haven't
   // previously started a server on this port.
-  myClient = new Client(this, "127.0.0.1", 5204); 
+  myClient = new Client(this, "127.0.0.2", 5204); 
   myClient.write("connect");
   ioa = new InOutArduino(new Arduino(this, Arduino.list()[2], 57600),
                                 0,13); 
